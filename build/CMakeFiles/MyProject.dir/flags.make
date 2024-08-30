@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/g++
 CXX_DEFINES = 
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -I/home/kali/icap_balancer/external/trantor -I/home/kali/icap_balancer/build/external/trantor/exports
 
 CXX_FLAGS = -g -std=gnu++17
 

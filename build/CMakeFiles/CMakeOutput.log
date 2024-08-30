@@ -451,3 +451,94 @@ Parsed CXX implicit link information from above output:
   implicit fwks: []
 
 
+Performing C++ SOURCE FILE Test COMPILER_HAS_HIDDEN_VISIBILITY succeeded with the following output:
+Change Dir: /home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-PVsQ9x
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_5c889/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_5c889.dir/build.make CMakeFiles/cmTC_5c889.dir/build
+gmake[1]: Entering directory '/home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-PVsQ9x'
+Building CXX object CMakeFiles/cmTC_5c889.dir/src.cxx.o
+/usr/bin/g++ -DCOMPILER_HAS_HIDDEN_VISIBILITY  -fvisibility=hidden -o CMakeFiles/cmTC_5c889.dir/src.cxx.o -c /home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-PVsQ9x/src.cxx
+Linking CXX executable cmTC_5c889
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5c889.dir/link.txt --verbose=1
+/usr/bin/g++ CMakeFiles/cmTC_5c889.dir/src.cxx.o -o cmTC_5c889 
+gmake[1]: Leaving directory '/home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-PVsQ9x'
+
+
+Source file was:
+int main() { return 0; }
+
+Performing C++ SOURCE FILE Test COMPILER_HAS_HIDDEN_INLINE_VISIBILITY succeeded with the following output:
+Change Dir: /home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-Dm5SFg
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_92cd7/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_92cd7.dir/build.make CMakeFiles/cmTC_92cd7.dir/build
+gmake[1]: Entering directory '/home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-Dm5SFg'
+Building CXX object CMakeFiles/cmTC_92cd7.dir/src.cxx.o
+/usr/bin/g++ -DCOMPILER_HAS_HIDDEN_INLINE_VISIBILITY  -fvisibility-inlines-hidden -o CMakeFiles/cmTC_92cd7.dir/src.cxx.o -c /home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-Dm5SFg/src.cxx
+Linking CXX executable cmTC_92cd7
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_92cd7.dir/link.txt --verbose=1
+/usr/bin/g++ CMakeFiles/cmTC_92cd7.dir/src.cxx.o -o cmTC_92cd7 
+gmake[1]: Leaving directory '/home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-Dm5SFg'
+
+
+Source file was:
+int main() { return 0; }
+
+Performing C++ SOURCE FILE Test COMPILER_HAS_DEPRECATED_ATTR succeeded with the following output:
+Change Dir: /home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-4or1pt
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_f91c3/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_f91c3.dir/build.make CMakeFiles/cmTC_f91c3.dir/build
+gmake[1]: Entering directory '/home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-4or1pt'
+Building CXX object CMakeFiles/cmTC_f91c3.dir/src.cxx.o
+/usr/bin/g++ -DCOMPILER_HAS_DEPRECATED_ATTR   -o CMakeFiles/cmTC_f91c3.dir/src.cxx.o -c /home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-4or1pt/src.cxx
+/home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-4or1pt/src.cxx: In function ‘int main()’:
+/home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-4or1pt/src.cxx:2:33: warning: ‘int somefunc()’ is deprecated [-Wdeprecated-declarations]
+    2 |     int main() { return somefunc();}
+      |                         ~~~~~~~~^~
+/home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-4or1pt/src.cxx:1:37: note: declared here
+    1 | __attribute__((__deprecated__)) int somefunc() { return 0; }
+      |                                     ^~~~~~~~
+Linking CXX executable cmTC_f91c3
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f91c3.dir/link.txt --verbose=1
+/usr/bin/g++ CMakeFiles/cmTC_f91c3.dir/src.cxx.o -o cmTC_f91c3 
+gmake[1]: Leaving directory '/home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-4or1pt'
+
+
+Source file was:
+__attribute__((__deprecated__)) int somefunc() { return 0; }
+    int main() { return somefunc();}
+
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD succeeded with the following output:
+Change Dir: /home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-nGyidl
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_986ee/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_986ee.dir/build.make CMakeFiles/cmTC_986ee.dir/build
+gmake[1]: Entering directory '/home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-nGyidl'
+Building C object CMakeFiles/cmTC_986ee.dir/src.c.o
+/usr/bin/gcc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_986ee.dir/src.c.o -c /home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-nGyidl/src.c
+Linking C executable cmTC_986ee
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_986ee.dir/link.txt --verbose=1
+/usr/bin/gcc CMakeFiles/cmTC_986ee.dir/src.c.o -o cmTC_986ee 
+gmake[1]: Leaving directory '/home/kali/icap_balancer/build/CMakeFiles/CMakeScratch/TryCompile-nGyidl'
+
+
+Source file was:
+#include <pthread.h>
+
+static void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+

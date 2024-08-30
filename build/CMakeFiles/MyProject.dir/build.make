@@ -92,6 +92,7 @@ MyProject_EXTERNAL_OBJECTS =
 
 MyProject: CMakeFiles/MyProject.dir/src/main.cpp.o
 MyProject: CMakeFiles/MyProject.dir/build.make
+MyProject: external/trantor/libtrantor.a
 MyProject: CMakeFiles/MyProject.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kali/icap_balancer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable MyProject"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MyProject.dir/link.txt --verbose=$(VERBOSE)

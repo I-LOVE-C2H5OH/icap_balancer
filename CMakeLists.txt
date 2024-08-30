@@ -3,8 +3,8 @@ project(MyProject)
 
 set(CMAKE_CXX_STANDARD 17)
 add_executable(MyProject src/main.cpp)
-#add_subdirectory(external/drogon)
-target_link_libraries(${PROJECT_NAME} PRIVATE drogon)
+add_subdirectory(external/trantor)
+target_link_libraries(${PROJECT_NAME} PRIVATE trantor)
 
 # include_directories(${DROGON_SOURCE_DIR}
 #                     ${DROGON_SOURCE_DIR}/drogon

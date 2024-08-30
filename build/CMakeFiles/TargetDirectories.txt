@@ -1,3 +1,14 @@
 /home/kali/icap_balancer/build/CMakeFiles/MyProject.dir
 /home/kali/icap_balancer/build/CMakeFiles/edit_cache.dir
 /home/kali/icap_balancer/build/CMakeFiles/rebuild_cache.dir
+/home/kali/icap_balancer/build/CMakeFiles/list_install_components.dir
+/home/kali/icap_balancer/build/CMakeFiles/install.dir
+/home/kali/icap_balancer/build/CMakeFiles/install/local.dir
+/home/kali/icap_balancer/build/CMakeFiles/install/strip.dir
+/home/kali/icap_balancer/build/external/trantor/CMakeFiles/trantor.dir
+/home/kali/icap_balancer/build/external/trantor/CMakeFiles/edit_cache.dir
+/home/kali/icap_balancer/build/external/trantor/CMakeFiles/rebuild_cache.dir
+/home/kali/icap_balancer/build/external/trantor/CMakeFiles/list_install_components.dir
+/home/kali/icap_balancer/build/external/trantor/CMakeFiles/install.dir
+/home/kali/icap_balancer/build/external/trantor/CMakeFiles/install/local.dir
+/home/kali/icap_balancer/build/external/trantor/CMakeFiles/install/strip.dir
