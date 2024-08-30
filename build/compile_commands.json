@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/kali/icap_balancer/build",
+  "command": "/usr/bin/g++   -g -std=gnu++17 -o CMakeFiles/MyProject.dir/src/main.cpp.o -c /home/kali/icap_balancer/src/main.cpp",
+  "file": "/home/kali/icap_balancer/src/main.cpp"
+}
+]
