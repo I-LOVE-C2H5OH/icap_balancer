@@ -4,7 +4,7 @@
 
 class MyTcpClient{
 public:
-    MyTcpClient(std::string remoteHost, int port, const trantor::TcpConnectionPtr& serverConnectionToClient);
+    MyTcpClient(std::string remoteHost, int port, const trantor::TcpConnectionPtr& serverConnectionToClient, trantor::EventLoop *loop);
     ~MyTcpClient();
     void ServerRecvCallback(const trantor::TcpConnectionPtr &connectionPtr, trantor::MsgBuffer *buffer);
     void ClientMessageCallback(const trantor::TcpConnectionPtr &connectionPtr, trantor::MsgBuffer *buffer);
@@ -14,7 +14,7 @@ private:
     std::vector<trantor::MsgBuffer*> m_serverBuffers;
     std::string m_remoteHost;
     trantor::InetAddress m_inetAddr;
-    std::unique_ptr<trantor::TcpClient> m_client;
+    std::shared_ptr<trantor::TcpClient> m_client;
     trantor::TcpConnectionPtr m_serverConnectionToClient;
     trantor::TcpConnectionPtr m_serverConnectionToServer;
     trantor::EventLoop* m_eventLoop;
