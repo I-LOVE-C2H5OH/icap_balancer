@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 
+//#include "TcpClient/TcpClient.h"
+
 using namespace trantor;
 #define USE_IPV6 0
 
@@ -13,6 +15,8 @@ void processICAPRequest(const TcpConnectionPtr& connectionPtr, MsgBuffer* buffer
 }
 
 int main() {
+   // mains();
+    //return 0;
     LOG_DEBUG << "ICAP server start";
     EventLoopThread loopThread;
     loopThread.run();
