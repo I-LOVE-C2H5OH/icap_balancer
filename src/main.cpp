@@ -41,7 +41,7 @@ int main() {
 
     server.setConnectionCallback([](const trantor::TcpConnectionPtr &connPtr) {
         if (connPtr->connected()) {
-            TcpClient = new MyTcpClient(RemoteHost, ICAP_PORT, connPtr, &loopThread);
+            TcpClient = new MyTcpClient(RemoteHost, ICAP_PORT, connPtr);
             LOG_DEBUG << "New ICAP connection";
         } else if (connPtr->disconnected()) {
             delete TcpClient;
