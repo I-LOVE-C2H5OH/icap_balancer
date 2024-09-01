@@ -11,19 +11,18 @@
 #define RemoteHost "10.4.46.15"
 std::queue<trantor::TcpConnectionPtr> queue;
 
+MyTcpClient* TcpClient;
 void processICAPRequest(const trantor::TcpConnectionPtr& connectionPtr, trantor::MsgBuffer* buffer) {
 }
 
+    trantor::EventLoop loopThread;
 int main() {
-    std::vector<::TcpClient*> TcpClient;
     
     // mains();
     //return 0;
     LOG_DEBUG << "ICAP server start";
-    trantor::EventLoopThread loopThread;
-    loopThread.run();
     trantor::InetAddress addr(1344);
-    trantor::TcpServer server(loopThread.getLoop(), addr, "ICAPServer");
+    trantor::TcpServer server(&loopThread, addr, "ICAPServer");
 
     server.setBeforeListenSockOptCallback([](int fd) {
         std::cout << "setBeforeListenSockOptCallback:" << fd << std::endl;
@@ -40,15 +39,17 @@ int main() {
         }
     );
 
-    server.setConnectionCallback([TcpClient](const trantor::TcpConnectionPtr &connPtr) {
+    server.setConnectionCallback([](const trantor::TcpConnectionPtr &connPtr) {
         if (connPtr->connected()) {
+            TcpClient = new MyTcpClient(RemoteHost, ICAP_PORT, connPtr, &loopThread);
             LOG_DEBUG << "New ICAP connection";
         } else if (connPtr->disconnected()) {
+            delete TcpClient;
             LOG_DEBUG << "ICAP connection disconnected";
         }
     });
 
     server.setIoLoopNum(3);
     server.start();
-    loopThread.wait();
+    loopThread.loop();
 }
