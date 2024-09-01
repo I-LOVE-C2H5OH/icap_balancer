@@ -4,24 +4,26 @@
 #include <string>
 #include <iostream>
 
-//#include "TcpClient/TcpClient.h"
+#include "TcpClient/TcpClient.hpp"
 
-using namespace trantor;
 #define USE_IPV6 0
-
+#define ICAP_PORT 1344
+#define RemoteHost "10.4.46.15"
 std::queue<trantor::TcpConnectionPtr> queue;
 
-void processICAPRequest(const TcpConnectionPtr& connectionPtr, MsgBuffer* buffer) {
+void processICAPRequest(const trantor::TcpConnectionPtr& connectionPtr, trantor::MsgBuffer* buffer) {
 }
 
 int main() {
-   // mains();
+    std::vector<::TcpClient*> TcpClient;
+    
+    // mains();
     //return 0;
     LOG_DEBUG << "ICAP server start";
-    EventLoopThread loopThread;
+    trantor::EventLoopThread loopThread;
     loopThread.run();
-    InetAddress addr(1344);
-    TcpServer server(loopThread.getLoop(), addr, "ICAPServer");
+    trantor::InetAddress addr(1344);
+    trantor::TcpServer server(loopThread.getLoop(), addr, "ICAPServer");
 
     server.setBeforeListenSockOptCallback([](int fd) {
         std::cout << "setBeforeListenSockOptCallback:" << fd << std::endl;
@@ -32,13 +34,13 @@ int main() {
     });
 
     server.setRecvMessageCallback(
-        [](const TcpConnectionPtr &connectionPtr, MsgBuffer *buffer) {
+        [](const trantor::TcpConnectionPtr &connectionPtr, trantor::MsgBuffer *buffer) {
             LOG_DEBUG << "Receive message callback";
             processICAPRequest(connectionPtr, buffer);
         }
     );
 
-    server.setConnectionCallback([](const TcpConnectionPtr &connPtr) {
+    server.setConnectionCallback([TcpClient](const trantor::TcpConnectionPtr &connPtr) {
         if (connPtr->connected()) {
             LOG_DEBUG << "New ICAP connection";
         } else if (connPtr->disconnected()) {
