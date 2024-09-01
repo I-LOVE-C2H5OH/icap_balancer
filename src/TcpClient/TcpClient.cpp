@@ -2,15 +2,14 @@
 MyTcpClient::MyTcpClient(std::string remoteHost, int port, const trantor::TcpConnectionPtr& serverConnectionToClient, trantor::EventLoop *loop) :
     m_serverConnectionToClient(serverConnectionToClient),
     m_remoteHost(remoteHost),
-    m_eventLoop(loop), // Присваиваем переданный EventLoop
-    m_inetAddr("10.4.46.15", 1344) // Инициализируем InetAddress
+    m_eventLoop(loop), 
+    m_inetAddr("10.4.46.15", 1344) 
 {
     // Устанавливаем колбек для получения сообщений от сервера
     m_serverConnectionToClient->setRecvMsgCallback([this](const trantor::TcpConnectionPtr& connectionPtr, trantor::MsgBuffer* buffer) {
         this->ServerRecvCallback(connectionPtr, buffer);
     });
 
-    // Используем уже существующий m_eventLoop для инициализации TcpClient
     m_client = std::make_unique<trantor::TcpClient>(m_eventLoop, m_inetAddr, m_remoteHost);
 
     // Устанавливаем колбеки для TcpClient
@@ -22,7 +21,6 @@ MyTcpClient::MyTcpClient(std::string remoteHost, int port, const trantor::TcpCon
         ClientConnectionCallback(conn);
     });
 
-    // Подключаем клиента
     m_client->connect();
 }
 
