@@ -1,8 +1,7 @@
 #include "TcpClient.hpp"
-MyTcpClient::MyTcpClient(std::string remoteHost, int port, const trantor::TcpConnectionPtr& serverConnectionToClient, trantor::EventLoop *loop) :
+MyTcpClient::MyTcpClient(std::string remoteHost, int port, const trantor::TcpConnectionPtr& serverConnectionToClient) :
     m_serverConnectionToClient(serverConnectionToClient),
     m_remoteHost(remoteHost),
-    m_eventLoop(loop), 
     m_inetAddr("10.4.46.15", 1344) 
 {
     // Устанавливаем колбек для получения сообщений от сервера
