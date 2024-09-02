@@ -54,7 +54,7 @@ void MyTcpClient::ClientConnectionCallback(const trantor::TcpConnectionPtr &conn
 bool MyTcpClient::SendToClient(const std::string& buffer)
 {
     if(m_serverConnectionToClient && !buffer.empty()){
-        if(buffer.find("ndefined") != std::string::npos)
+        if(buffer.find("lock") != std::string::npos)
         {
             LOG_DEBUG << "!!!!!!!!!!!!!!BLOCK BY UNDENFINDEN!!!!!!!!!!!!!!";
         }

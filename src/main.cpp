@@ -79,7 +79,7 @@ int main() {
         }
     });
 
-    server.setIoLoopNum(3);
+    server.setIoLoopNum(5);
     server.start();
     loopThread.loop();
 }
