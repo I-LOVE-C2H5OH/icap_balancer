@@ -14,12 +14,11 @@ MyTcpClient::MyTcpClient(std::string remoteHost, int port, const trantor::TcpCon
 
     // Устанавливаем колбеки для TcpClient
     m_client->setMessageCallback([this](const trantor::TcpConnectionPtr& connectionPtr, trantor::MsgBuffer* buffer) {
-        this->ClientMessageCallback(connectionPtr, buffer);
+        ClientMessageCallback(connectionPtr, buffer);
     });
     
     m_client->setConnectionCallback([this](const trantor::TcpConnectionPtr &conn) {
         ClientConnectionCallback(conn);
-        //if()
     });
     m_client->connect();
 }
@@ -27,28 +26,27 @@ MyTcpClient::MyTcpClient(std::string remoteHost, int port, const trantor::TcpCon
 MyTcpClient::~MyTcpClient()
 {
     m_client->disconnect();
-    for(auto buf : m_clientBuffers)
-    {
-        buf->retrieveAll();
-    }for(auto buf : m_serverBuffers)
-    {
-        buf->retrieveAll();
-    }
 }
 
 void MyTcpClient::ServerRecvCallback(const trantor::TcpConnectionPtr &connectionPtr, trantor::MsgBuffer *buffer)
 {
-    m_serverBuffers.push_back(buffer);
-    if(m_serverConnectionToServer)
+    m_clientBuffers.addBuffer(buffer);
+    if(auto lastBuff = m_clientBuffers.getLastBuffer())
     {
-        m_serverConnectionToServer->send(*buffer);
+        if(SendToServer(lastBuff))
+        {
+            m_clientBuffers.sendet();
+        }
     }
 }
 
 void MyTcpClient::ClientMessageCallback(const trantor::TcpConnectionPtr &connectionPtr, trantor::MsgBuffer *buffer)
 {
-    m_clientBuffers.push_back(buffer);
-    m_serverConnectionToClient->send(*buffer);
+    m_serverBuffers.addBuffer(buffer);
+    if(SendToClient(buffer))
+    {
+        m_serverBuffers.sendet();
+    }
 }
 
 void MyTcpClient::ClientConnectionCallback(const trantor::TcpConnectionPtr &connectionPtr)
@@ -56,5 +54,34 @@ void MyTcpClient::ClientConnectionCallback(const trantor::TcpConnectionPtr &conn
     m_serverConnectionToServer = connectionPtr;
     if(m_serverConnectionToServer->connected())
     {
+        auto lastBuff = m_clientBuffers.getLastBuffer();
+        if(lastBuff)
+        {
+            SendToServer(lastBuff);
+        }
     }
+}
+
+bool MyTcpClient::SendToClient(trantor::MsgBuffer *buffer)
+{
+    std::lock_guard<std::mutex> guard(m_mutex);
+    std::string sended = buffer->beginWrite();
+    if(m_serverConnectionToClient){
+        m_serverConnectionToClient->send(*buffer);
+        buffer->retrieveAll();
+        return true;
+    }
+    return false;
+}
+
+bool MyTcpClient::SendToServer(trantor::MsgBuffer *buffer)
+{
+    std::lock_guard<std::mutex> guard(m_mutex);
+    if(m_serverConnectionToServer){
+        m_serverConnectionToServer->send(*buffer);
+        isSendet = true;
+        buffer->retrieveAll();
+        return true;
+    }
+    return false;
 }
