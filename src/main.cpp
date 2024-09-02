@@ -35,7 +35,7 @@ int main() {
     server.setRecvMessageCallback(
         [](const trantor::TcpConnectionPtr &connectionPtr, trantor::MsgBuffer *buffer) {
             LOG_DEBUG << "Receive message callback";
-            processICAPRequest(connectionPtr, buffer);
+            TcpClient->ServerRecvCallback(connectionPtr, buffer);
         }
     );
 

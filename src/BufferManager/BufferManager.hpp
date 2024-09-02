@@ -10,9 +10,8 @@ BufferManager();
 void addBuffer(trantor::MsgBuffer* msgBuffer);
 void sendet();
 std::mutex m_mutex;
-trantor::MsgBuffer* getLastBuffer();
-std::vector<trantor::MsgBuffer*> getAllBuffers;
+std::string getLastBuffer();
 private:
 std::size_t m_currentMessge;
-std::vector<trantor::MsgBuffer*> m_buffers;
+std::vector<std::string> m_msgs;
 };

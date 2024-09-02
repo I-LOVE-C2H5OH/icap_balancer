@@ -12,8 +12,8 @@ public:
     void ServerRecvCallback(const trantor::TcpConnectionPtr &connectionPtr, trantor::MsgBuffer *buffer);
     void ClientMessageCallback(const trantor::TcpConnectionPtr &connectionPtr, trantor::MsgBuffer *buffer);
     void ClientConnectionCallback(const trantor::TcpConnectionPtr &conn);
-    bool SendToClient(trantor::MsgBuffer *buffer);
-    bool SendToServer(trantor::MsgBuffer *buffer);
+    bool SendToClient(const std::string& buffer);
+    bool SendToServer(const std::string& buffer);
 private:
     bool isSendet;
     std::mutex m_mutex;
