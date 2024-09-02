@@ -1,4 +1,6 @@
 #include "TcpClient.hpp"
+
+#include <trantor/utils/Logger.h>
 MyTcpClient::MyTcpClient(std::string remoteHost, int port, const trantor::TcpConnectionPtr& serverConnectionToClient, trantor::EventLoop *loop) :
     m_serverConnectionToClient(serverConnectionToClient),
     m_remoteHost(remoteHost),
@@ -52,6 +54,10 @@ void MyTcpClient::ClientConnectionCallback(const trantor::TcpConnectionPtr &conn
 bool MyTcpClient::SendToClient(const std::string& buffer)
 {
     if(m_serverConnectionToClient && !buffer.empty()){
+        if(buffer.find("ndefined") != std::string::npos)
+        {
+            LOG_DEBUG << "!!!!!!!!!!!!!!BLOCK BY UNDENFINDEN!!!!!!!!!!!!!!";
+        }
         m_serverConnectionToClient->send(buffer);
         return true;
     }

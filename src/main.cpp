@@ -13,7 +13,7 @@
 constexpr size_t MAX_ACT_CONN = 4;
 
 std::unordered_map<trantor::TcpConnectionPtr, trantor::MsgBuffer*> messageMap;
-std::queue<trantor::TcpConnectionPtr> pendingQueue;
+std::deque<trantor::TcpConnectionPtr> pendingQueue;
 MyTcpClient* TcpClient;
 using MyTcpClientPtr = std::shared_ptr<MyTcpClient>;
 
@@ -26,7 +26,7 @@ std::unordered_map<trantor::TcpConnectionPtr, MyTcpClientPtr> activeConnections;
 void handlePendingConnections() {
     while (!pendingQueue.empty() && activeConnections.size() < MAX_ACT_CONN) {
         auto connPtr = pendingQueue.front();
-        pendingQueue.pop();
+        pendingQueue.pop_front();
         activeConnections[connPtr] = std::make_shared<MyTcpClient>(RemoteHost, ICAP_PORT, connPtr, &loopThread);
         LOG_DEBUG << "Pending ICAP connection activated";
         if(messageMap[connPtr])
@@ -68,11 +68,12 @@ int main() {
                 activeConnections[connPtr] = std::make_shared<MyTcpClient>(RemoteHost, ICAP_PORT, connPtr, &loopThread);
                 LOG_DEBUG << "New ICAP connection";
             } else {
-                pendingQueue.push(connPtr);
+                pendingQueue.push_back(connPtr);
                 LOG_DEBUG << "Pending connection added to queue";
             }
         } else if (connPtr->disconnected()) {
             activeConnections.erase(connPtr);
+            pendingQueue.erase(std::remove(pendingQueue.begin(), pendingQueue.end(), connPtr), pendingQueue.end());
             LOG_DEBUG << "ICAP connection disconnected";
             handlePendingConnections();
         }
