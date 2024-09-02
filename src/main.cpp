@@ -12,6 +12,7 @@
 #define RemoteHost "10.4.46.15"
 constexpr size_t MAX_ACT_CONN = 1;
 
+std::unordered_map<trantor::TcpConnectionPtr, trantor::MsgBuffer*> messageMap;
 std::queue<trantor::TcpConnectionPtr> pendingQueue;
 MyTcpClient* TcpClient;
 using MyTcpClientPtr = std::shared_ptr<MyTcpClient>;
@@ -28,6 +29,11 @@ void handlePendingConnections() {
         pendingQueue.pop();
         activeConnections[connPtr] = std::make_shared<MyTcpClient>(RemoteHost, ICAP_PORT, connPtr, &loopThread);
         LOG_DEBUG << "Pending ICAP connection activated";
+        if(messageMap[connPtr])
+        { 
+            activeConnections[connPtr]->ServerRecvCallback(connPtr, messageMap[connPtr]);
+            messageMap.erase(connPtr);
+        }
     }
 }
 
@@ -49,6 +55,9 @@ int main() {
             LOG_DEBUG << "Receive message callback";
             if (activeConnections.find(connectionPtr) != activeConnections.end()) {
                 activeConnections[connectionPtr]->ServerRecvCallback(connectionPtr, buffer);
+            }
+            else {
+                messageMap[connectionPtr] = buffer;
             }
         }
     );
