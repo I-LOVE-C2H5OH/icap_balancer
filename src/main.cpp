@@ -10,7 +10,7 @@
 #define USE_IPV6 0
 #define ICAP_PORT 1344
 #define RemoteHost "10.4.46.15"
-constexpr size_t MAX_ACT_CONN = 1;
+constexpr size_t MAX_ACT_CONN = 4;
 
 std::unordered_map<trantor::TcpConnectionPtr, trantor::MsgBuffer*> messageMap;
 std::queue<trantor::TcpConnectionPtr> pendingQueue;

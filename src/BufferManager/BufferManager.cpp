@@ -20,10 +20,11 @@ std::string BufferManager::getLastBuffer()
     {
         return "";
     }
-    return m_msgs[m_currentMessge];
+    return m_msgs[m_msgs.size() - 1];
 } 
 
 void BufferManager::sendet()
 {
+    std::lock_guard<std::mutex> guard(m_mutex);
     m_currentMessge++;
 }
