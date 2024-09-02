@@ -28,10 +28,7 @@ void MyTcpClient::ServerRecvCallback(const trantor::TcpConnectionPtr &connection
     std::lock_guard<std::mutex> guard(m_mutex);
     m_clientBuffers.addBuffer(buffer);
     {
-        if(SendToServer(m_clientBuffers.getLastBuffer()))
-        {
-            m_clientBuffers.sendet();
-        }
+        SendToServer(m_clientBuffers.getLastBuffer());
     }
 }
 
@@ -39,10 +36,7 @@ void MyTcpClient::ClientMessageCallback(const trantor::TcpConnectionPtr &connect
 {
     std::lock_guard<std::mutex> guard(m_mutex);
     m_serverBuffers.addBuffer(buffer);
-    if(SendToClient(m_serverBuffers.getLastBuffer()))
-    {
-        m_serverBuffers.sendet();
-    }
+    SendToClient(m_serverBuffers.getLastBuffer());
 }
 
 void MyTcpClient::ClientConnectionCallback(const trantor::TcpConnectionPtr &connectionPtr)
@@ -51,12 +45,7 @@ void MyTcpClient::ClientConnectionCallback(const trantor::TcpConnectionPtr &conn
     m_serverConnectionToServer = connectionPtr;
     if(m_serverConnectionToServer->connected())
     {
-        {
-            if(SendToServer(m_clientBuffers.getLastBuffer()))
-            {
-                m_clientBuffers.sendet();
-            }
-        }
+        SendToServer(m_clientBuffers.getLastBuffer());
     }
 }
 

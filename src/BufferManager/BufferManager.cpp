@@ -25,6 +25,4 @@ std::string BufferManager::getLastBuffer()
 
 void BufferManager::sendet()
 {
-    std::lock_guard<std::mutex> guard(m_mutex);
-    m_currentMessge++;
 }
