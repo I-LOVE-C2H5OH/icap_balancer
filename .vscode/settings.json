@@ -1,4 +1,5 @@
 {
+    "cmake.debugConfig": {"args": ["../example_config.yml"]},
     "files.associations": {
         "any": "cpp",
         "array": "cpp",

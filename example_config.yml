@@ -1,0 +1,4 @@
+Distance_host: "127.0.0.1"
+Disctance_port: 1344
+Source_port: 1344
+Max_active_dist_connections: 2

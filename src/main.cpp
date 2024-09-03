@@ -6,6 +6,7 @@
 #include <iostream>
 #include <unordered_map>
 #include "TcpClient/TcpClient.hpp"
+#include "Setting/Setting.hpp"
 
 #define USE_IPV6 0
 #define ICAP_PORT 1344
@@ -41,7 +42,9 @@ int main(int argc, char **argv) {
     if(argc != 2)
     {
         LOG_ERROR << "USE ./programm configureFile.yml";
+        return 1;
     }
+    Setting setting(argv[1]);
     LOG_DEBUG << "ICAP server start";
     trantor::InetAddress addr(1344);
     trantor::TcpServer server(&loopThread, addr, "ICAPServer");
