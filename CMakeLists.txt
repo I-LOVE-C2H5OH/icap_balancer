@@ -1,8 +1,12 @@
 cmake_minimum_required(VERSION 3.10)
-project(MyProject)
+project(icap_balancer)
 
 set(CMAKE_CXX_STANDARD 17)
-add_executable(MyProject src/main.cpp src/TcpClient/TcpClient.cpp src/BufferManager/BufferManager.cpp)
+add_executable(${PROJECT_NAME} 
+    src/main.cpp 
+    src/TcpClient/TcpClient.cpp 
+    src/BufferManager/BufferManager.cpp
+    src/Setting/Setting.cpp)
 add_subdirectory(external/trantor)
 add_subdirectory(external/yaml-cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE trantor

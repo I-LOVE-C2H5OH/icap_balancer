@@ -37,7 +37,11 @@ void handlePendingConnections() {
     }
 }
 
-int main() {
+int main(int argc, char **argv) {
+    if(argc != 2)
+    {
+        LOG_ERROR << "USE ./programm configureFile.yml";
+    }
     LOG_DEBUG << "ICAP server start";
     trantor::InetAddress addr(1344);
     trantor::TcpServer server(&loopThread, addr, "ICAPServer");
