@@ -1,3 +1,6 @@
 [submodule "external/trantor"]
 	path = external/trantor
 	url = https://github.com/an-tao/trantor.git
+[submodule "external/yaml-cpp"]
+	path = external/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git
