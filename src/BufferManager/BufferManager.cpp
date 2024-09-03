@@ -15,7 +15,6 @@ void BufferManager::addBuffer(trantor::MsgBuffer* msgBuffer)
 std::string BufferManager::getLastBuffer()
 {
     std::lock_guard<std::mutex> guard(m_mutex);
-    //return m_buffers[0];
     if(m_msgs.empty())
     {
         return "";
