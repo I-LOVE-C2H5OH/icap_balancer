@@ -15,7 +15,6 @@ public:
     bool SendToClient(const std::string& buffer);
     bool SendToServer(const std::string& buffer);
 private:
-    bool isSendet;
     std::mutex m_mutex;
     BufferManager m_clientBuffers;
     BufferManager m_serverBuffers;
