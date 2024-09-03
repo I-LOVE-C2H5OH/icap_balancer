@@ -4,10 +4,10 @@ class Setting {
 public:
     Setting();
     Setting(const std::string& filepath);
-    int sourcePort();
-    int distancePort();
-    unsigned long maxActiveDistanceConnections();
-    std::string distanceHost();
+    int sourcePort() const;
+    int distancePort() const;
+    unsigned long maxActiveDistanceConnections() const;
+    std::string distanceHost() const;
 private:
     int m_sourcePort;
     int m_distancePort;

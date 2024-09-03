@@ -24,22 +24,22 @@ Setting::Setting(const std::string& filepath)
         }
 }
 
-int Setting::sourcePort()
+int Setting::sourcePort() const
 {
     return m_sourcePort;
 }
 
-int Setting::distancePort()
+int Setting::distancePort() const
 {
     return m_distancePort;
 }
 
-unsigned long Setting::maxActiveDistanceConnections()
+unsigned long Setting::maxActiveDistanceConnections() const
 {
     return m_maxActiveDistanceConnections;
 }
 
-std::string Setting::distanceHost()
+std::string Setting::distanceHost() const
 {
     return m_distanceHost;
 }

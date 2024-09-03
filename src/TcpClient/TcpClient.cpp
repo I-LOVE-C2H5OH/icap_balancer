@@ -1,7 +1,7 @@
 #include "TcpClient.hpp"
 
 #include <trantor/utils/Logger.h>
-MyTcpClient::MyTcpClient(std::string remoteHost, int port, const trantor::TcpConnectionPtr& serverConnectionToClient, trantor::EventLoop *loop) :
+MyTcpClient::MyTcpClient(const std::string& remoteHost, int port, const trantor::TcpConnectionPtr& serverConnectionToClient, trantor::EventLoop *loop) :
     m_serverConnectionToClient(serverConnectionToClient),
     m_remoteHost(remoteHost),
     m_inetAddr(remoteHost, port),

@@ -8,11 +8,6 @@
 #include "TcpClient/TcpClient.hpp"
 #include "Setting/Setting.hpp"
 
-#define USE_IPV6 0
-#define ICAP_PORT 1344
-#define RemoteHost "10.4.46.15"
-constexpr size_t MAX_ACT_CONN = 4;
-
 std::unordered_map<trantor::TcpConnectionPtr, trantor::MsgBuffer*> messageMap;
 std::deque<trantor::TcpConnectionPtr> pendingQueue;
 MyTcpClient* TcpClient;
@@ -24,11 +19,11 @@ void processICAPRequest(const trantor::TcpConnectionPtr& connectionPtr, trantor:
 trantor::EventLoop loopThread;
 std::unordered_map<trantor::TcpConnectionPtr, MyTcpClientPtr> activeConnections;
 
-void handlePendingConnections() {
-    while (!pendingQueue.empty() && activeConnections.size() < MAX_ACT_CONN) {
+void handlePendingConnections(const Setting& setting) {
+    while (!pendingQueue.empty() && activeConnections.size() < setting.maxActiveDistanceConnections()) {
         auto connPtr = pendingQueue.front();
         pendingQueue.pop_front();
-        activeConnections[connPtr] = std::make_shared<MyTcpClient>(RemoteHost, ICAP_PORT, connPtr, &loopThread);
+        activeConnections[connPtr] = std::make_shared<MyTcpClient>(setting.distanceHost(), setting.distancePort(), connPtr, &loopThread);
         LOG_DEBUG << "Pending ICAP connection activated";
         if(messageMap[connPtr])
         { 
@@ -46,7 +41,7 @@ int main(int argc, char **argv) {
     }
     Setting setting(argv[1]);
     LOG_DEBUG << "ICAP server start";
-    trantor::InetAddress addr(1344);
+    trantor::InetAddress addr(setting.sourcePort());
     trantor::TcpServer server(&loopThread, addr, "ICAPServer");
 
     server.setBeforeListenSockOptCallback([](int fd) {
@@ -68,11 +63,10 @@ int main(int argc, char **argv) {
             }
         }
     );
-
-    server.setConnectionCallback([](const trantor::TcpConnectionPtr &connPtr) {
+    server.setConnectionCallback([&setting](const trantor::TcpConnectionPtr &connPtr) {
         if (connPtr->connected()) {
-            if (activeConnections.size() < MAX_ACT_CONN) {
-                activeConnections[connPtr] = std::make_shared<MyTcpClient>(RemoteHost, ICAP_PORT, connPtr, &loopThread);
+            if (activeConnections.size() < setting.maxActiveDistanceConnections()) {
+                activeConnections[connPtr] = std::make_shared<MyTcpClient>(setting.distanceHost(), setting.distancePort(), connPtr, &loopThread);
                 LOG_DEBUG << "New ICAP connection";
             } else {
                 pendingQueue.push_back(connPtr);
@@ -82,7 +76,7 @@ int main(int argc, char **argv) {
             activeConnections.erase(connPtr);
             pendingQueue.erase(std::remove(pendingQueue.begin(), pendingQueue.end(), connPtr), pendingQueue.end());
             LOG_DEBUG << "ICAP connection disconnected";
-            handlePendingConnections();
+            handlePendingConnections(setting);
         }
     });
 
