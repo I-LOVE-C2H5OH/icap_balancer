@@ -49,6 +49,10 @@ void MyTcpClient::ClientConnectionCallback(const trantor::TcpConnectionPtr &conn
     {
         SendToServer(m_clientBuffers.getLastBuffer());
     }
+    else
+    {
+        m_serverConnectionToClient->forceClose();
+    }
 }
 
 bool MyTcpClient::SendToClient(const std::string& buffer)
@@ -67,8 +71,10 @@ bool MyTcpClient::SendToClient(const std::string& buffer)
 bool MyTcpClient::SendToServer(const std::string& buffer)
 {
     if(m_serverConnectionToServer && !buffer.empty()){
-        m_serverConnectionToServer->send(buffer);
-        return true;
+        if(m_serverConnectionToServer->connected()){
+            m_serverConnectionToServer->send(buffer);
+            return true;
+        }
     }
     return false;
 }
